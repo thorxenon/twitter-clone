@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Input } from "../ui/Input";
 import { Button } from "../ui/Button";
 
-export const SigninForm = () =>{
+export const SignupForm = () =>{
 
     const router = useRouter();
 
@@ -27,7 +27,6 @@ export const SigninForm = () =>{
                 value={ name }
                 onChange={ t =>setName(t) }
             />
-
             <Input
                 placeHolder="Digite seu e-mail"
                 value={ emailField }
@@ -44,7 +43,7 @@ export const SigninForm = () =>{
             <Button
                 //onSubmit={e=> handleSubmit(e)}
                 onClick={handleEnterButton}
-                label="Enviar"
+                label="Criar conta"
                 size={1}
             />
         </>
