@@ -23,12 +23,6 @@ export const SigninForm = () =>{
     return(
         <>
             <Input
-                placeHolder="Digite o seu nome"
-                value={ name }
-                onChange={ t =>setName(t) }
-            />
-
-            <Input
                 placeHolder="Digite seu e-mail"
                 value={ emailField }
                 onChange={ t =>setEmailField(t) }

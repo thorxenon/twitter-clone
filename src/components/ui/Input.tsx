@@ -2,7 +2,7 @@
 
 import { faEye, faEyeSlash, IconDefinition } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 
 // interface InputType{
 //     type:[
@@ -19,11 +19,18 @@ type Props ={
     value?: string;
     password?: boolean;
     filled?: boolean
-    icon?: IconDefinition
+    icon?: IconDefinition;
+    onEnter?: () => void;
 }
 
-export const Input = ({ placeHolder, onChange, value, password, filled, icon }: Props) =>{
+export const Input = ({ placeHolder, onChange, value, password, filled, icon, onEnter }: Props) =>{
     const [ showPassword, setShowPassword ] = useState(false);
+
+    const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) =>{
+        if(event.code.toLowerCase() === 'enter' && onEnter){
+            onEnter();
+        }
+    }
     
     return(
         <div className={`has-[:focus]:border-white flex items-center h-14 rounded-3xl border-2 border-gray-700 ${filled && 'bg-gray-700'}`}>
@@ -42,6 +49,7 @@ export const Input = ({ placeHolder, onChange, value, password, filled, icon }: 
                 placeholder={placeHolder}
                 onChange={e => onChange && onChange(e.target.value)}
                 value={value}
+                onKeyUp={handleKeyUp}
             />
 
             {password &&
