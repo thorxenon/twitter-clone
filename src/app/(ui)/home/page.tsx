@@ -1,8 +1,11 @@
+import { HomeHeader } from "@/components/home/home-header";
 
 
 const page = () => {
   return (
-    <div>...</div>
+      <div>
+        <HomeHeader/>
+      </div>
   )
 }
 

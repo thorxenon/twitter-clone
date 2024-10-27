@@ -2,6 +2,7 @@ import NavItem from "@/components/navigation/nav-item";
 import NavLogout from "@/components/navigation/nav-logout";
 import { NavMyProfile } from "@/components/navigation/nav-myprofile";
 import { Logo } from "@/components/ui/logo";
+import { RecommendationArea } from "@/components/ui/recommendation-area";
 import { SearchInput } from "@/components/ui/search-input";
 import { TrendingArea } from "@/components/ui/trending-area";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +15,7 @@ type Props={
 
 const Layout = ({ children }: Props) =>{
     return(
-        <main className="min-h-screen flex justify-center mx-auto max-w-7xl">
+        <main className="min-h-screen flex justify-between mx-auto max-w-7xl">
             <section className="hidden lg:flex flex-col sticky top-0 h-screen w-72 px-3 border-r-2 border-gray-900">
                 <div className="flex-1 mt-6">
                     <Logo size={24}/>
@@ -44,9 +45,11 @@ const Layout = ({ children }: Props) =>{
             <section className="flex-1 max-w-lg">
                 {children}
             </section>
-            <aside className="hidden lg:flex flex-col gap-6 sticky top-0 h-fit w-96 px-8 py-6 border-l-2 border-gray-900">
+            <aside className="hidden lg:flex flex-col gap-6 sticky top-0 h-auto w-96 px-8 py-6 border-l-2 border-gray-900">
                 <SearchInput hideOnSearch/>
                 <TrendingArea/>
+
+                <RecommendationArea/>
             </aside>
         </main>
     );
