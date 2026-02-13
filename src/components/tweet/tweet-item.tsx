@@ -24,10 +24,10 @@ export const TweetItem = ({ tweet }: Props) =>{
     return(
         <div className="flex gap-2 p-6 border-b-2 border-gray-900">
             <div>
-                <Link href={`/${tweet.user.name}`}>
+                <Link href={`/${tweet.user.nickname}`}>
                     <img
                         src={tweet.user.avatar}
-                        alt={tweet.user.name}
+                        alt={tweet.user.nickname}
                         className="size-10 rounded-full"
                     />
                 </Link>
@@ -35,7 +35,7 @@ export const TweetItem = ({ tweet }: Props) =>{
             <div className="flex-1">
                 <div className="flex-wrap items-center gap-x-3">
                     <div className="font-bold text-lg">
-                        <Link href={`/${tweet.user.name}`}>{tweet.user.name}</Link>
+                        <Link href={`/${tweet.user.nickname}`}>{tweet.user.nickname}</Link>
                     </div>
                     <div className="text-xs text-gray-500">@{tweet.user.nickname} - {formatRelative(tweet.dataPost)}</div>
                 </div>

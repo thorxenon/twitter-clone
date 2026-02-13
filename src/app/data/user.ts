@@ -7,6 +7,6 @@ export const user: User  ={
     cover:'/cover.jpg',
     bio:'Desenvolvedor Full Stack Next, Node, PHP e Python',
     link:'www.google.com',
-    postCount:180
+    postCount: 180
 
 }
