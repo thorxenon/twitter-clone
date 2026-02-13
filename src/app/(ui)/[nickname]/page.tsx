@@ -1,4 +1,5 @@
 import { user } from "@/app/data/user";
+import { ProfileFeed } from "@/components/profile/profile-feed";
 import { Button } from "@/components/ui/Button";
 import { GeneralHeader } from "@/components/ui/general-header";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
@@ -52,6 +53,8 @@ export default function Page() {
                 </div>
                 
             </section>
+
+            <ProfileFeed/>
         </div>
     )
 }
