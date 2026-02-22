@@ -1,26 +1,31 @@
-import { tweet } from "@/app/data/tweet";
+"use client";
+
+import { useEffect } from "react";
 import { TweetItem } from "../tweet/tweet-item";
+import { useFeed } from "@/hooks/useFeed";
 
 export const HomeFeed = () => {
+  const { feed, loading, error, getFeed } = useFeed();
 
+  useEffect(() => {
+    getFeed();
+  }, [getFeed]);
+
+  if (loading) {
+    return <div className="p-4 text-center">Carregando feed...</div>;
+  }
+
+  if (error) {
+    return <div className="p-4 text-center text-red-500">{error}</div>;
+  }
 
   return (
     <div>
-      <TweetItem
-        tweet={tweet}
-      />
-
-      <TweetItem
-        tweet={tweet}
-      />
-
-      <TweetItem
-        tweet={tweet}
-      />
-
-      <TweetItem
-        tweet={tweet}
-      />
+      {feed && feed?.tweets.map((tweet) =>
+        <>
+          <TweetItem key={tweet.id} tweet={tweet} />
+        </>
+      )}
     </div>
   );
 };

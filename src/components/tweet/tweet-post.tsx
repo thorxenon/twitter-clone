@@ -5,8 +5,10 @@ import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../ui/Button";
 import { useRef } from "react";
+import { useUser } from "@/contexts/user-context";
 
 export const TweetPost = () =>{
+    const { userInfo } = useUser();
 
     const handleImageUpload = () =>{
 
@@ -32,13 +34,15 @@ export const TweetPost = () =>{
 
     return(
         <div className="flex gap-6 px-8 py-6 border-b-2 border-gray-2">
-            <div>
-                <img
-                    src={user.avatar}
-                    alt={user.name}
-                    className="size-12 rounded-full"
-                />
-            </div>
+            {userInfo && (
+                <div>
+                    <img
+                        src={userInfo?.avatar}
+                        alt={userInfo?.name}
+                        className="size-12 rounded-full"
+                    />
+                </div>
+            )}
 
             <div className="flex-1">
                 <div

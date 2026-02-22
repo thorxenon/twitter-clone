@@ -1,6 +1,5 @@
 "use client"
 
-import { Tweet } from "@/app/types/tweet"
 import { formatRelative } from "@/utils/format-relative";
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faRetweet, faHeart as faHeartFilled } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +8,18 @@ import Link from "next/link";
 import { useState } from "react";
 
 type Props = {
-    tweet: Tweet;
+    tweet: {
+        id: number;
+        user:{
+            slug: string;
+            avatar: string;
+            name: string
+        };
+        body: string;
+        image: string | null;
+        created_at: string;
+        likes: any[];
+    };
     hideComments?: boolean;
 }
 
@@ -25,10 +35,10 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
     return(
         <div className="flex gap-2 p-6 border-b-2 border-gray-900">
             <div>
-                <Link href={`/${tweet.user.nickname}`}>
+                <Link href={`/${tweet.user.slug}`}>
                     <img
                         src={tweet.user.avatar}
-                        alt={tweet.user.nickname}
+                        alt={tweet.user.slug}
                         className="size-10 rounded-full"
                     />
                 </Link>
@@ -36,9 +46,9 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
             <div className="flex-1">
                 <div className="flex-wrap items-center gap-x-3">
                     <div className="font-bold text-lg">
-                        <Link href={`/${tweet.user.nickname}`}>{tweet.user.nickname}</Link>
+                        <Link href={`/${tweet.user.slug}`}>{tweet.user.slug}</Link>
                     </div>
-                    <div className="text-xs text-gray-500">@{tweet.user.nickname} - {formatRelative(tweet.dataPost)}</div>
+                    <div className="text-xs text-gray-500">@{tweet.user.slug} - {formatRelative(new Date(tweet.created_at))}</div>
                 </div>
                 <div className="py-4 text-lg">{tweet.body}</div>
                 {tweet.image && (
@@ -58,7 +68,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                             <Link href={`/tweet/${tweet.id}`}>
                                 <div className="inline-flex items-center gap-2 cursor-pointer">
                                     <FontAwesomeIcon icon={faComment} className="size-6" />
-                                    <div className="">{tweet.commentCount}</div>
+                                    <div className="">{9}</div>
                                 </div>
                             </Link>
                         </div>
@@ -66,7 +76,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                     <div className="flex-1">
                         <div className="inline-flex items-center gap-2 cursor-pointer">
                             <FontAwesomeIcon icon={faRetweet} className="size-6" />
-                            <div className="">{tweet.retweetCount}</div>
+                            <div className="">{9}</div>
                         </div>
                     </div>
 
@@ -76,7 +86,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                             onClick={handleLikeButton}
                         >
                             <FontAwesomeIcon icon={liked ? faHeartFilled : faHeart} className="size-6" />
-                            <div className="">{tweet.likeCount}</div>
+                            <div className="">{9}</div>
                         </div>
                     </div>
                 </div>
