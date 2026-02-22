@@ -17,7 +17,7 @@ type Props = {
         };
         body: string;
         image: string | null;
-        created_at: string;
+        createdAt: string;
         likes: any[];
     };
     hideComments?: boolean;
@@ -30,7 +30,6 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
     const handleLikeButton = () =>{
         setLiked(!liked);
     }
-
 
     return(
         <div className="flex gap-2 p-6 border-b-2 border-gray-900">
@@ -48,7 +47,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                     <div className="font-bold text-lg">
                         <Link href={`/${tweet.user.slug}`}>{tweet.user.slug}</Link>
                     </div>
-                    <div className="text-xs text-gray-500">@{tweet.user.slug} - {formatRelative(new Date(tweet.created_at))}</div>
+                    <div className="text-xs text-gray-500">@{tweet.user.slug} - {formatRelative(tweet.createdAt)}</div>
                 </div>
                 <div className="py-4 text-lg">{tweet.body}</div>
                 {tweet.image && (

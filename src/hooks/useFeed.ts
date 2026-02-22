@@ -10,7 +10,7 @@ type Tweet = {
         };
         body: string;
         image: string | null;
-        created_at: string;
+        createdAt: string;
         likes: any[];
 }
 

@@ -1,4 +1,5 @@
-export const formatRelative = (date: Date) =>{
+export const formatRelative = (dateString: string) =>{
+    const date = new Date(dateString);
     const now = new Date();
     const diff = date.getTime() - now.getTime();
 

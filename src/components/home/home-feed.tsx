@@ -21,6 +21,11 @@ export const HomeFeed = () => {
 
   return (
     <div>
+
+      {loading && (
+        <div className="p-4 text-center animate-pulse text-zinc-500">Carregando feed...</div>
+      )}
+
       {feed && feed?.tweets.map((tweet) =>
         <>
           <TweetItem key={tweet.id} tweet={tweet} />
