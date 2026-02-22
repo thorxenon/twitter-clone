@@ -64,7 +64,7 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
                 
             </section>
 
-            <ProfileFeed/>
+            <ProfileFeed slug={slug}/>
         </div>
     )
 }
