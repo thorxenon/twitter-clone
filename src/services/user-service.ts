@@ -1,18 +1,14 @@
 import apiClient from "@/apis/twitter-api"
 
 export const userService = async() =>{
-
-    const getUserLoggedInfo = async() =>{
-        try{
-            const request = await apiClient.get("/users/");
-            return request.data;
-        }catch(error){
-            console.error("Erro ao buscar usuário:", error);
-            throw error;
+    try{
+        const request = await apiClient.get("/users/me");
+        return {
+            status: request.status,
+            data: request.data
         }
-    }
-
-    return{
-        getUserLoggedInfo
+    }catch(error){
+        console.error("Erro ao buscar usuário:", error);
+        throw error;
     }
 }

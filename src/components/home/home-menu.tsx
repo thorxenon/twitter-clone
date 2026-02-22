@@ -11,9 +11,7 @@ type Props={
 }
 
 
-export const HomeMenu = ({ closeAction }: Props) =>{
-
-    
+export const HomeMenu = ({ closeAction }: Props) =>{    
     return(
         <div className="lg:hidden fixed inset-0 p-6 bg-black">
             <div className="flex justify-between items-center">

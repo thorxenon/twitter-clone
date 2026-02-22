@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             } else {
                 router.replace("/signin");
             }
-            setLoading(false);
         }
         loadToken();
     },[router, pathname]);

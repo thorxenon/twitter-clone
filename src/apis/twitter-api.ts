@@ -9,9 +9,9 @@ const axiosInstance = axios.create({
     }
 });
 
-const apiClient = setupCache(axiosInstance);
+// const apiClient = setupCache(axiosInstance);
 
-apiClient.interceptors.request.use(
+axiosInstance.interceptors.request.use(
     async (config) =>{
         const token = localStorage.getItem('token');
         if(token){
@@ -25,7 +25,7 @@ apiClient.interceptors.request.use(
     }
 );
 
-apiClient.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => {
     // Se a resposta for sucesso, apenas a retorna
     return response;
@@ -40,4 +40,4 @@ apiClient.interceptors.response.use(
   }
 );
 
-export default apiClient;
+export default axiosInstance;
