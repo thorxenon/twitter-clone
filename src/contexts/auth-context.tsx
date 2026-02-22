@@ -41,21 +41,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     },[router, pathname]);
 
     const login = async (token: string): Promise<void> =>{
-        try{
-            setToken(token);
-            localStorage.setItem('token', token);
-        }catch(error){
-
-        }
+        setToken(token);
+        localStorage.setItem('token', token);
     }
 
     const logout = async() => {
-        try{
-            setToken(null);
-            localStorage.removeItem('token');
-        }catch(error){
-            throw new Error('Erro ao fazer login'+ error);
-        }
+        setToken(null);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user_info');
     }
 
 

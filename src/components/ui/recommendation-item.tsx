@@ -6,7 +6,11 @@ import { Button } from "./Button"
 import { useState } from "react"
 
 type Props={
-    user:User
+    user:{
+        name: string;
+        slug: string;
+        avatar: string;
+    }
 }
 
 export const RecommendationItem = ({ user }: Props) =>{
@@ -20,20 +24,20 @@ export const RecommendationItem = ({ user }: Props) =>{
     return(
         <div className="flex items-center">
             <div className="size-10 mr-2 rounded-full overflow-hidden">
-                <Link href={`/${user.nickname}`}>
+                <Link href={`/${user.slug}`}>
                     <img src={user.avatar} alt={user.name} />
                 </Link>
             </div>
 
             <div className="flex-1 overflow-hidden">
                 <Link
-                    href={`/${user.nickname}`}
+                    href={`/${user.slug}`}
                     className="block truncate"
                 >
                     {user.name}
                 </Link>
                 <div className="truncate text-sm text-gray-400">
-                    @{user.nickname}
+                    @{user.slug}
                 </div>
             </div>
             <div className="pl-2 w-20">

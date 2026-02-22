@@ -21,10 +21,9 @@ export const SigninForm = () =>{
         setLoading(true);
 
         try{
-            console.log('Enviando dados:', { slug: slugField, password: passwordField });
             const request = await loginService(slugField, passwordField);
 
-            if(request.status !== 201){
+            if(request.status === 404){
                 toast.error('Slug ou senha inválidos.');
                 return;
             }
@@ -33,7 +32,7 @@ export const SigninForm = () =>{
             login(request.data.token);
             router.replace('/home');
         }catch(error){
-            toast.error('Ocorreu um erro no servidor. Tente novamente mais tarde.');
+            toast.error('Slug ou senha inválidas.');
         } finally {
             setLoading(false);
         }
