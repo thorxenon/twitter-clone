@@ -1,6 +1,21 @@
-import { user } from "@/app/data/user";
+"use client";
+
+import { useAuth } from "@/contexts/auth-context";
+import { useUser } from "@/contexts/user-context";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Page(){
-    redirect('/'+user.nickname);
+    const { userInfo } = useUser();
+    const { logout } = useAuth();
+
+    if(!userInfo){
+        toast.info('Deslogando...');
+
+        setTimeout(() =>{
+            logout();
+            redirect('/login');
+        }, 800);
+    }
+    redirect('/'+userInfo?.slug);
 }
