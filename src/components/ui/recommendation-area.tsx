@@ -18,7 +18,9 @@ export const RecommendationArea = () =>{
 
             <div className="flex flex-col gap-4 p-6 pt-0">
                 {!loading && !error && suggestions && suggestions.map((suggestion) =>(
-                    <RecommendationItem user={suggestion} />
+                    <div key={suggestion.slug}>
+                        <RecommendationItem user={suggestion} />
+                    </div>
                 ))}
                 
                 {loading && (

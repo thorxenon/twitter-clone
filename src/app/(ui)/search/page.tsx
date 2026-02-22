@@ -21,10 +21,10 @@ export default function Page({ searchParams }: Props) {
             </GeneralHeader>
 
             <div className="border-t-2 border-gray-500">
+                {/* <TweetItem tweet={tweet}/>
                 <TweetItem tweet={tweet}/>
                 <TweetItem tweet={tweet}/>
-                <TweetItem tweet={tweet}/>
-                <TweetItem tweet={tweet}/>
+                <TweetItem tweet={tweet}/> */}
             </div>
         </div>
     )

@@ -7,25 +7,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
 
+type User = {
+    slug: string;
+    avatar: string;
+    name: string;
+}
+
+type Tweet = {
+    id: number;
+    user: User;
+    body: string;
+    likes: any[];
+    image: string | null;
+    createdAt: string;
+}
+
 type Props = {
-    tweet: {
-        id: number;
-        user:{
-            slug: string;
-            avatar: string;
-            name: string
-        };
-        body: string;
-        image: string | null;
-        createdAt: string;
-        likes: any[];
-    };
+    tweet: Tweet;
     hideComments?: boolean;
 }
 
 export const TweetItem = ({ tweet, hideComments }: Props) =>{
     const [ liked, setLiked ] = useState(false);
-
 
     const handleLikeButton = () =>{
         setLiked(!liked);

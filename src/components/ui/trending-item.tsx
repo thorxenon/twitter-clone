@@ -8,7 +8,7 @@ interface Props{
 export const TrendingItem: React.FC<Props> = ({ label, count }) =>{
     return(
         <Link
-            href={`/search?q=${encodeURIComponent(label)}`}
+            href={`/trend?hashtag=${encodeURIComponent(label.split("#")[1])}`}
             className="group/item"
         >
             <div className="group-hover/item:underline font-bold">{label}</div>

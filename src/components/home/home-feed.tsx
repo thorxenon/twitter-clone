@@ -27,9 +27,9 @@ export const HomeFeed = () => {
       )}
 
       {feed && feed?.tweets.map((tweet) =>
-        <>
+        <div key={tweet.id}>
           <TweetItem key={tweet.id} tweet={tweet} />
-        </>
+        </div>
       )}
     </div>
   );
