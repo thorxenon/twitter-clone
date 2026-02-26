@@ -11,7 +11,10 @@ type Tweet = {
         body: string;
         image: string | null;
         createdAt: string;
-        likes: any[];
+        likeCount: number;
+        isLikedByUser: boolean;
+        commentsCount: number;
+        retweetCount: number;
 }
 
 type FeedDataProps = {

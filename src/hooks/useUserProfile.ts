@@ -1,3 +1,4 @@
+import { useAuth } from "@/contexts/auth-context";
 import { userProfileService } from "@/services/user-profile-service";
 import { useCallback, useState } from "react";
 
@@ -19,6 +20,7 @@ export const useUserProfile = () => {
     const [ userProfileData, setUserProfileData ] = useState<UserProfileData | null>(null);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState<string | null>(null);
+    const { logout } = useAuth();
 
     const fecthUserProfileData = useCallback(async (slug: string) => {
         try{
@@ -29,11 +31,10 @@ export const useUserProfile = () => {
                 setError(null);
                 setUserProfileData(response.data);
                 setLoading(false);
-            }else{
-                setLoading(false);
-                setUserProfileData(null);
-                setError("Failed to fetch user profile data");
             }
+            setLoading(false);
+            setUserProfileData(null);
+            setError("Failed to fetch user profile data");
         }catch(error){
             setError("Failed to fetch user profile data "+ error);
             setLoading(false);

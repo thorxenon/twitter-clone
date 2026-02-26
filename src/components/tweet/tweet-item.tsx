@@ -7,19 +7,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useState } from "react";
 
-type User = {
-    slug: string;
-    avatar: string;
-    name: string;
-}
-
 type Tweet = {
     id: number;
-    user: User;
+    user:{
+        slug: string;
+        avatar: string;
+        name: string
+    };
     body: string;
-    likes: any[];
     image: string | null;
     createdAt: string;
+    likeCount: number;
+    isLikedByUser: boolean;
+    commentsCount: number;
+    retweetCount: number;
 }
 
 type Props = {
@@ -28,7 +29,7 @@ type Props = {
 }
 
 export const TweetItem = ({ tweet, hideComments }: Props) =>{
-    const [ liked, setLiked ] = useState(false);
+    const [ liked, setLiked ] = useState(tweet.isLikedByUser);
 
     const handleLikeButton = () =>{
         setLiked(!liked);
@@ -70,7 +71,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                             <Link href={`/tweet/${tweet.id}`}>
                                 <div className="inline-flex items-center gap-2 cursor-pointer">
                                     <FontAwesomeIcon icon={faComment} className="size-6" />
-                                    <div className="">{9}</div>
+                                    <div className="">{tweet.commentsCount}</div>
                                 </div>
                             </Link>
                         </div>
@@ -78,7 +79,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                     <div className="flex-1">
                         <div className="inline-flex items-center gap-2 cursor-pointer">
                             <FontAwesomeIcon icon={faRetweet} className="size-6" />
-                            <div className="">{9}</div>
+                            <div className="">{tweet.retweetCount}</div>
                         </div>
                     </div>
 
@@ -88,7 +89,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                             onClick={handleLikeButton}
                         >
                             <FontAwesomeIcon icon={liked ? faHeartFilled : faHeart} className="size-6" />
-                            <div className="">{9}</div>
+                            <div className="">{tweet.likeCount}</div>
                         </div>
                     </div>
                 </div>
