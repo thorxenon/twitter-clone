@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useEffect } from "react";
 import { useUser } from "@/contexts/user-context";
 import { userService } from "@/services/user-service";
+import { Spinner } from "../ui/spinner";
 
 export const NavMyProfile = () =>{
 
@@ -39,13 +40,7 @@ export const NavMyProfile = () =>{
     return(
         <div className="flex items-center">
             {loading && (
-                <div className="flex items-center">
-                    <div className="w-10 h-10 mr-2 rounded-full bg-gray-200 animate-pulse"></div>
-                    <div className="flex-1">
-                        <div className="h-4 bg-gray-200 rounded w-3/4 animate-pulse mb-1"></div>
-                        <div className="h-3 bg-gray-200 rounded w-1/2 animate-pulse"></div>
-                    </div>
-                </div>
+               <Spinner/>
             )}
 
             {!loading && userInfo && (

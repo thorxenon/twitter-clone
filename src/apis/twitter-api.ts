@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setupCache } from 'axios-cache-interceptor';
 import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
@@ -9,8 +8,6 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json'
     }
 });
-
-// const apiClient = setupCache(axiosInstance);
 
 axiosInstance.interceptors.request.use(
     async (config) =>{
@@ -28,11 +25,9 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    // Se a resposta for sucesso, apenas a retorna
     return response;
   },
   (error) => {
-    // Exemplo: se o erro for 401, desloga o usuário
     if (error.response && error.response.status === 401) {
       console.log('Usuário não autorizado. Deslogando...');
       Cookies.remove('auth_token');

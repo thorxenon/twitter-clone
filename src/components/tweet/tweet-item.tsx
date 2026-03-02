@@ -1,12 +1,14 @@
 "use client"
 
+import { AnimatePresence } from "framer-motion";
 import { useLike } from "@/hooks/useLike";
 import { formatRelative } from "@/utils/format-relative";
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faRetweet, faHeart as faHeartFilled } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { TweetRetweetModalDialog } from "./tweet-retweet-modal-dialog";
 
 type Tweet = {
     id: number;
@@ -32,6 +34,7 @@ type Props = {
 export const TweetItem = ({ tweet, hideComments }: Props) =>{
     const [ liked, setLiked ] = useState(tweet.isLikedByUser);
     const [ likeCount, setLikeCount ] = useState(tweet.likeCount);
+    const [isRetweetModalOpen, setIsRetweetModalOpen] = useState(false);
     const { fetchLike } = useLike(tweet.id, tweet.isLikedByUser);
 
     const handleLikeButton = () =>{
@@ -44,9 +47,13 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
 
     }
 
-    const handleRetweetButton = () =>{
+    const handleRetweetButton = () => {
+        setIsRetweetModalOpen(true);
+    };
 
-    }
+    const handleCloseRetweetModal = () => {
+        setIsRetweetModalOpen(false);
+    };
 
     const handleRedirectToTweetIdPage = () =>{
         window.location.href = `/tweet/${tweet.id}`;
@@ -110,6 +117,14 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                         </div>
                     </div>
                 </div>
+                <AnimatePresence>
+                    {isRetweetModalOpen && (
+                        <TweetRetweetModalDialog
+                            retweetCount={tweet.retweetCount}
+                            onClose={handleCloseRetweetModal}
+                        />
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )

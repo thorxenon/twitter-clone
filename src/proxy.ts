@@ -4,7 +4,6 @@ import type { NextRequest } from 'next/server'
 // This function can be marked `async` if using `await` inside
 export default function middleware(request: NextRequest) {
   const token = request.cookies.get('auth_token')?.value
-  console.log('Middleware token:', token)
 
   const signInURL = new URL('/signin', request.url)
   const homeURL = new URL('/home', request.url)
