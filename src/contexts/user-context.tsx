@@ -1,5 +1,6 @@
 import { useRouter, usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 type UserInfoProps = {
     id: number;
@@ -31,12 +32,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() =>{
         const loadUserInfo = () =>{
-            const storedUserInfo = localStorage.getItem('user_info');
+            const storedUserInfo = Cookies.get('user_info');
             if(storedUserInfo){
                 setUserInfo(JSON.parse(storedUserInfo));
             } else {
                 setUserInfo(null);
-                router.replace("/signin");
             }
         }
         loadUserInfo();
@@ -45,7 +45,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const setUserData = async (userData: UserInfoProps | null): Promise<void> =>{
         try{
             setUserInfo(userData);
-            localStorage.setItem('user_info', JSON.stringify(userData));
+            if (userData) {
+                Cookies.set('user_info', JSON.stringify(userData), { expires: 7, path: '/' });
+            } else {
+                Cookies.remove('user_info');
+            }
         }catch(error){
             throw new Error('Erro ao definir dados do usuário: ' + error);
         }

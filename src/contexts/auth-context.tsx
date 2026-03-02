@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { useRouter, usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -23,31 +24,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() =>{
         const loadToken = () =>{
-            const storedToken = localStorage.getItem('token');
+            const storedToken = Cookies.get('auth_token');
             if(storedToken){
                 setToken(storedToken);
-                if(pathname === '/signin'){
-                    router.replace('/home');
-                }
-
-                if(pathname === '/signup'){
-                    router.replace('/home');
-                }
-            } else {
-                router.replace("/signin");
-            }
+            } 
         }
         loadToken();
     },[router, pathname]);
 
     const login = async (token: string): Promise<void> =>{
         setToken(token);
-        localStorage.setItem('token', token);
+        Cookies.set('auth_token', token, { expires: 7, path: '/' }); // Expires in 7 days
     }
 
     const logout = async() => {
         setToken(null);
-        localStorage.removeItem('token');
+        Cookies.remove('auth_token');
         localStorage.removeItem('user_info');
     }
 

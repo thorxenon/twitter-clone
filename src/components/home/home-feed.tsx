@@ -21,15 +21,14 @@ export const HomeFeed = () => {
 
   return (
     <div>
-
-      {loading && (
-        <div className="p-4 text-center animate-pulse text-zinc-500">Carregando feed...</div>
-      )}
-
-      {feed && feed?.tweets.map((tweet) =>
-        <div key={tweet.id}>
-          <TweetItem key={tweet.id} tweet={tweet} />
-        </div>
+      {(!feed || !feed.tweets || feed.tweets.length === 0) ? (
+        <div className="p-4 text-center text-zinc-500">Nenhum tweet encontrado.</div>
+      ) : (
+        feed.tweets.map((tweet) => (
+          <div key={tweet.id}>
+            <TweetItem key={tweet.id} tweet={tweet} />
+          </div>
+        ))
       )}
     </div>
   );

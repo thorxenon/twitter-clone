@@ -1,11 +1,12 @@
 "use client"
 
+import { useLike } from "@/hooks/useLike";
 import { formatRelative } from "@/utils/format-relative";
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faRetweet, faHeart as faHeartFilled } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Tweet = {
     id: number;
@@ -30,9 +31,25 @@ type Props = {
 
 export const TweetItem = ({ tweet, hideComments }: Props) =>{
     const [ liked, setLiked ] = useState(tweet.isLikedByUser);
+    const [ likeCount, setLikeCount ] = useState(tweet.likeCount);
+    const { fetchLike } = useLike(tweet.id, tweet.isLikedByUser);
 
     const handleLikeButton = () =>{
         setLiked(!liked);
+        setLikeCount(prev => liked ? prev - 1 : prev + 1);
+        fetchLike();
+    }
+
+    const handleCommentButton = ()=>{
+
+    }
+
+    const handleRetweetButton = () =>{
+
+    }
+
+    const handleRedirectToTweetIdPage = () =>{
+        window.location.href = `/tweet/${tweet.id}`;
     }
 
     return(
@@ -53,7 +70,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                     </div>
                     <div className="text-xs text-gray-500">@{tweet.user.slug} - {formatRelative(tweet.createdAt)}</div>
                 </div>
-                <div className="py-4 text-lg">{tweet.body}</div>
+                <div onClick={handleRedirectToTweetIdPage} className="py-4 text-lg">{tweet.body}</div>
                 {tweet.image && (
                     <div className="w-full">
                         <img
@@ -69,7 +86,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                     {!hideComments && (
                         <div className="flex-1">
                             <Link href={`/tweet/${tweet.id}`}>
-                                <div className="inline-flex items-center gap-2 cursor-pointer">
+                                <div className="inline-flex items-center gap-2 cursor-pointer" onClick={handleCommentButton}>
                                     <FontAwesomeIcon icon={faComment} className="size-6" />
                                     <div className="">{tweet.commentsCount}</div>
                                 </div>
@@ -77,7 +94,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                         </div>
                     )}
                     <div className="flex-1">
-                        <div className="inline-flex items-center gap-2 cursor-pointer">
+                        <div className="inline-flex items-center gap-2 cursor-pointer" onClick={handleRetweetButton}>
                             <FontAwesomeIcon icon={faRetweet} className="size-6" />
                             <div className="">{tweet.retweetCount}</div>
                         </div>
@@ -89,7 +106,7 @@ export const TweetItem = ({ tweet, hideComments }: Props) =>{
                             onClick={handleLikeButton}
                         >
                             <FontAwesomeIcon icon={liked ? faHeartFilled : faHeart} className="size-6" />
-                            <div className="">{tweet.likeCount}</div>
+                            <div className="">{likeCount}</div>
                         </div>
                     </div>
                 </div>
